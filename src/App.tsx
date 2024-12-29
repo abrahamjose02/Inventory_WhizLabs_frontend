@@ -7,12 +7,15 @@ import EditItem from './components/EditItem';
 import { Toaster } from 'sonner';
 import ViewItem from './components/ViewItem';
 import Layout from './components/Layout';
+import NotFound from './components/NotFound';
+import Header from './components/Header';
 
 const App : React.FC = () => {
   return (
     <InventoryProvider>
       <Router>
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+          <Header/>
           <main className="container mx-auto px-4 py-8">
             <Routes>
               <Route element={<Layout/>}>
@@ -20,7 +23,7 @@ const App : React.FC = () => {
               <Route path="/add" element={<AddItem />} />
               <Route path="/edit/:id" element={<EditItem />} />
               <Route path="/view/:id" element={<ViewItem />} />
-              <Route path="*" element={<h1>Not Found</h1>} />
+              <Route path="*" element={<NotFound/>} />
               </Route>
             </Routes>
           </main>
