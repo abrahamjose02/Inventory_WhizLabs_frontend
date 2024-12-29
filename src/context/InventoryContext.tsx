@@ -77,25 +77,51 @@ export const InventoryProvider: React.FC<{children: React.ReactNode}> = ({ child
               "/items",
               item
             );
-            setItems([...items, response.data.data]); // Accessing the added item data from the response
-          } catch (err) {
+            setItems([...items, response.data.data]); // Add new item to the list
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } catch (err:any) {
             console.error("Error adding item:", err);
-            setError("Failed to add item");
+
+            // Check if the error is related to a duplicate item
+            if (err.response && err.response.data) {
+              const errorMessage = err.response.data.error;
+              if (errorMessage && errorMessage.includes("already exists")) {
+                // Return the error message for the duplicate item
+                throw new Error(errorMessage);
+              }
+            }
+
+            // Default error if not related to item duplication
+            throw new Error("Failed to add item. Please try again.");
           }
         };
 
-        const updateItem = async (id: string, item: Omit<Item, "_id">) => {
-          try {
-            const response = await axiosInstance.put<ApiResponse<Item>>(
-              `/items/${id}`,
-              item
-            );
-            setItems(items.map((i) => (i._id === id ? response.data.data : i))); // Accessing the updated item data
-          } catch (err) {
-            console.error(`Error updating item with id ${id}:`, err);
-            setError("Failed to update item");
-          }
-        };
+
+       const updateItem = async (id: string, item: Omit<Item, "_id">) => {
+         try {
+           const response = await axiosInstance.put<ApiResponse<Item>>(
+             `/items/${id}`,
+             item
+           );
+           setItems(items.map((i) => (i._id === id ? response.data.data : i))); // Update the item in the list
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         } catch (err:any) {
+           console.error(`Error updating item with id ${id}:`, err);
+
+           // Handle the case where the item name already exists
+           if (err.response && err.response.data) {
+             const errorMessage = err.response.data.error;
+             if (errorMessage && errorMessage.includes("already exists")) {
+               // Throw the error if the item name already exists
+               throw new Error(errorMessage);
+             }
+           }
+
+           // Default error message
+           throw new Error("Failed to update item. Please try again.");
+         }
+       };
+
 
         const deleteItem = async (id: string) => {
           try {

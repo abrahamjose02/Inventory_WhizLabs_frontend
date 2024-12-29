@@ -43,14 +43,21 @@ const AddItem: React.FC = () => {
 
   const handleSubmit = async (values: typeof initialValues) => {
     try {
+      // Attempt to add the new item
       await addItem(values);
       toast.success("Item added successfully!");
-      navigate("/");
-    } catch (error) {
-      toast.error("Failed to add item. Please try again.");
-      console.error(error);
+      navigate("/"); // Navigate to the inventory page or elsewhere
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      // Check if the error is specific to a duplicate item
+      if (error.message && error.message.includes("already exists")) {
+        toast.error(error.message); // Display the duplicate item error
+      } else {
+        toast.error("Failed to add item. Please try again.");
+      }
     }
   };
+
 
   return (
     <Card className="w-full max-w-md mx-auto">

@@ -66,18 +66,21 @@ const EditItem: React.FC = () => {
         toast.success("Item updated successfully!");
         navigate("/"); // Redirect to home after success
       }
-    } catch (error) {
-      toast.error("Failed to update item. Please try again.");
-      console.error(error);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error:any) {
+      if (error.message && error.message.includes("already exists")) {
+        toast.error(error.message); // Display duplicate item error message
+      } else {
+        toast.error("Failed to update item. Please try again."); // Display a general error message
+      }
+      console.error(error); // Log the error for debugging
     }
   };
 
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-center text-xl font-bold">
-          Edit Item
-        </CardTitle>
+        <CardTitle className="text-center text-xl font-bold">Edit Item</CardTitle>
         <CardDescription className="text-center">
           Update the details of the inventory item.
         </CardDescription>
