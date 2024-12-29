@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import notFoundImage from "../assets/not-found.svg" ;
+import { Button } from "./ui/button";
 
 const NotFound: React.FC = () => {
   return (
@@ -12,12 +13,9 @@ const NotFound: React.FC = () => {
       <p className="text-gray-600 dark:text-gray-300">
         The page you are looking for doesn't exist or has been moved.
       </p>
-      <Link
-        to="/"
-        className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
-      >
-        Back to Home
-      </Link>
+      <Button>
+        <Link to="/">Back to Home</Link>
+      </Button>
     </div>
   );
 };
