@@ -10,10 +10,12 @@ import Layout from './components/Layout';
 import NotFound from './components/NotFound';
 import Header from './components/Header';
 
+// Define the App component
 const App : React.FC = () => {
   return (
+    // Wrap the entire application with the InventoryProvider
     <InventoryProvider>
-      <Router>
+      <Router> 
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
           <Header/>
           <main className="container mx-auto px-4 py-8">

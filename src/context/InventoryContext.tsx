@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axiosInstance from "@/utils/axiosInstance";
 
-
+// Defining the structure of an item
 interface Item {
     _id:string;
     itemName:string;
@@ -16,7 +16,7 @@ interface ApiResponse<T> {
   success: boolean;
   data: T;
 }
-
+// Defining the structure of the InventoryContextType
 interface InventoryContextType {
     items: Item[];
   loading: boolean;
@@ -27,9 +27,10 @@ interface InventoryContextType {
   updateItem: (id: string, item: Omit<Item, "_id">) => Promise<void>;
   deleteItem: (id: string) => Promise<void>;
 }
-
+// Creating the InventoryContext
 const InventoryContext = createContext<InventoryContextType | undefined>(undefined)
 
+// Creating a custom hook to use the InventoryContext
 export const useInventory = () => {
     const context = useContext(InventoryContext)
     if (!context) {
@@ -37,7 +38,7 @@ export const useInventory = () => {
     }
     return context;
 }
-
+// Creating the InventoryProvider component
 export const InventoryProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
         const [items, setItems] = useState<Item[]>([]);
         const [loading, setLoading] = useState(true);
@@ -46,7 +47,7 @@ export const InventoryProvider: React.FC<{children: React.ReactNode}> = ({ child
         const fetchItems = async () => {
           try {
             setLoading(true);
-            const response = await axiosInstance.get<ApiResponse<Item[]>>(
+            const response = await axiosInstance.get<ApiResponse<Item[]>>( // Fetching the items from the API
               "/items"
             );
             setItems(response.data.data); // Here, we access response.data.data (which contains the items array)
@@ -61,7 +62,7 @@ export const InventoryProvider: React.FC<{children: React.ReactNode}> = ({ child
 
         const fetchItem = async (id: string): Promise<Item> => {
           try {
-            const response = await axiosInstance.get<ApiResponse<Item>>(
+            const response = await axiosInstance.get<ApiResponse<Item>>( // Fetching a single item by ID
               `/items/${id}`
             );
             return response.data.data; // Accessing the item data from the response
@@ -73,7 +74,7 @@ export const InventoryProvider: React.FC<{children: React.ReactNode}> = ({ child
 
         const addItem = async (item: Omit<Item, "_id">) => {
           try {
-            const response = await axiosInstance.post<ApiResponse<Item>>(
+            const response = await axiosInstance.post<ApiResponse<Item>>( // Adding a new item
               "/items",
               item
             );
@@ -99,7 +100,7 @@ export const InventoryProvider: React.FC<{children: React.ReactNode}> = ({ child
 
        const updateItem = async (id: string, item: Omit<Item, "_id">) => {
          try {
-           const response = await axiosInstance.put<ApiResponse<Item>>(
+           const response = await axiosInstance.put<ApiResponse<Item>>( // Updating an existing item
              `/items/${id}`,
              item
            );
@@ -125,7 +126,7 @@ export const InventoryProvider: React.FC<{children: React.ReactNode}> = ({ child
 
         const deleteItem = async (id: string) => {
           try {
-            await axiosInstance.delete(`/items/${id}`);
+            await axiosInstance.delete(`/items/${id}`); // Deleting an item by ID
             setItems(items.filter((i) => i._id !== id));
           } catch (err) {
             console.error(`Error deleting item with id ${id}:`, err);
@@ -134,10 +135,11 @@ export const InventoryProvider: React.FC<{children: React.ReactNode}> = ({ child
         };
 
         useEffect(() => {
-          fetchItems();
+          fetchItems(); // Fetch the items on component mount
         }, []);
 
         return (
+            // Providing the InventoryContext value to the children
           <InventoryContext.Provider
             value={{
               items,

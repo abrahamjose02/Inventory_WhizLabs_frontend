@@ -29,11 +29,13 @@ const validationSchema = Yup.object({
   description: Yup.string().required("Description is required"),
 });
 
+// Define the EditItem component
 const EditItem: React.FC = () => {
+    // Fetch the item ID from the URL
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const { fetchItem, updateItem } = useInventory();
-  const [initialValues, setInitialValues] = useState({
+  const navigate = useNavigate(); // Get the navigate function from react-router-dom
+  const { fetchItem, updateItem } = useInventory(); // Fetch the fetchItem and updateItem functions from the context
+  const [initialValues, setInitialValues] = useState({ // Define the initial form values
     itemName: "",
     quantity: 0,
     price: 0,
@@ -77,6 +79,7 @@ const EditItem: React.FC = () => {
     }
   };
 
+  // Render the EditItem form
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>

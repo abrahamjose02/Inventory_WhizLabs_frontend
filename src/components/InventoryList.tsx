@@ -15,17 +15,21 @@ import { toast } from "sonner";
 import LoadingSpinner from "./LoadingSpinner";
 import Pagination from "./Pagination";
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 6; //Number of items to display per page
 
 const InventoryList: React.FC = () => {
+    // Fetch the inventory items from the context
   const { items, loading, error, deleteItem } = useInventory();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Display a loading spinner while fetching the items
   if (loading) return <LoadingSpinner />;
   if (error) return <div className="text-center text-red-500">{error}</div>;
 
+
+  // Handle the delete button click
   const handleDeleteClick = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     e.stopPropagation();
@@ -33,6 +37,7 @@ const InventoryList: React.FC = () => {
     setDeleteModalOpen(true);
   };
 
+    // Handle the delete confirmation
   const handleDeleteConfirm = async () => {
     if (itemToDelete) {
       try {
@@ -46,6 +51,7 @@ const InventoryList: React.FC = () => {
     }
   };
 
+    // Calculate the current items to display based on the current page
   const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;

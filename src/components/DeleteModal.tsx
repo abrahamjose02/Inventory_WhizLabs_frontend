@@ -10,6 +10,7 @@ import {
   AlertDialogFooter,
 } from "../components/ui/alert-dialog";
 
+// Props interface for the DeleteModal component
 interface DeleteModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -23,6 +24,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   itemId,
   onConfirm,
 }) => {
+  // Don't render if modal is closed or no item is selected
   if (!isOpen || !itemId) return null;
 
   return (

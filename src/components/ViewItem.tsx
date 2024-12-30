@@ -13,7 +13,7 @@ import { Button } from "../components/ui/button";
 import { Separator } from "../components/ui/separator";
 import { ArrowLeft, Edit } from "lucide-react";
 
-interface Item {
+interface Item { // Define the Item interface
   id: string;
   itemName: string;
   quantity: number;
@@ -23,18 +23,21 @@ interface Item {
   _id?: string;
 }
 
+// Define the ViewItem component
 const ViewItem: React.FC = () => {
+    // Fetch the item ID from the URL
   const { id } = useParams<{ id: string }>();
   const { fetchItem } = useInventory();
   const [item, setItem] = useState<Item | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Fetch the item details on component mount
   useEffect(() => {
     const loadItem = async () => {
       if (id) {
         try {
-          const fetchedItem = await fetchItem(id);
+          const fetchedItem = await fetchItem(id); // Fetch the item details
           setItem({
             ...fetchedItem,
             id: fetchedItem._id, // Map _id to id
@@ -50,11 +53,14 @@ const ViewItem: React.FC = () => {
     loadItem();
   }, [id, fetchItem]);
 
+  // Display a loading spinner while fetching the item
+
   if (loading) return <LoadingSpinner />;
   if (error) return <div className="text-center text-red-500">{error}</div>;
   if (!item) return <div className="text-center">Item not found</div>;
 
   return (
+    // Display the item details
     <Card className="max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle className="text-3xl">{item.itemName}</CardTitle>

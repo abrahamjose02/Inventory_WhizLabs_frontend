@@ -3,11 +3,11 @@ import errorImage from "../assets/errorboundary.jpg";
 import { Button } from "./ui/button";
 
 interface ErrorBoundaryState {
-  hasError: boolean;
+  hasError: boolean; // Tracks whether an error has occurred
 }
 
 interface ErrorBoundaryProps {
-  children: ReactNode;
+  children: ReactNode; // Child components to be wrapped by the ErrorBoundary
 }
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -15,20 +15,22 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     super(props);
     this.state = { hasError: false };
   }
-
+  // Static method to update state when an error occurs
   static getDerivedStateFromError(): ErrorBoundaryState {
     return { hasError: true };
   }
-
+  // Logs error information for debugging
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error("ErrorBoundary caught an error", error, errorInfo);
   }
 
+  // Handler for page reload button
   handleReload = () => {
     window.location.reload();
   };
 
   render() {
+    // Show error UI if an error occurred
     if (this.state.hasError) {
       return (
         <div className="flex flex-col items-center justify-center min-h-screen text-center space-y-6">

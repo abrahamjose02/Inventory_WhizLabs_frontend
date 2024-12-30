@@ -29,17 +29,20 @@ const validationSchema = Yup.object({
   description: Yup.string().required("Description is required"),
 });
 
+// Define the AddItem component
 const AddItem: React.FC = () => {
   const { addItem } = useInventory();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Get the navigate function from react-router-dom
 
-  const initialValues = {
+  const initialValues = { // Define the initial form values
     itemName: "",
     quantity: 0,
     price: 0,
     category: "",
     description: "",
   };
+
+  // Handle the form submission
 
   const handleSubmit = async (values: typeof initialValues) => {
     try {
@@ -58,7 +61,7 @@ const AddItem: React.FC = () => {
     }
   };
 
-
+// Return the form for adding a new item
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
