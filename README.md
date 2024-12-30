@@ -38,7 +38,7 @@
 
 Create a .env file in the root of your backend project and add the following variables:
 
-plaintext
+
 MONGO_URI=mongodb+srv://<your_mongo_connection_string>
 PORT=5000
 
@@ -47,20 +47,20 @@ PORT=5000
 
 1. **Clone the repository:**
 
-bash
+
 git clone https://github.com/abrahamjose02/Inventory_WhizLabs_backend.git
 cd Inventory_WhizLabs_backend
 
 
 2. **Install backend dependencies:**
 
-bash
+
 npm install
 
 
 3. **Run the backend server:**
 
-bash
+
 npm start
 
 
@@ -68,7 +68,7 @@ npm start
 
 Navigate to the client folder for frontend setup:
 
-bash
+
 cd ../Inventory_WhizLabs_frontend
 npm install
 npm run dev
