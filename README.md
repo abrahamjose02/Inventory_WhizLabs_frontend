@@ -1,50 +1,115 @@
-# React + TypeScript + Vite
+# Inventory WhizLabs
+## Introduction
+**Inventory WhizLabs** is a powerful inventory management system designed for businesses to easily track and manage their product inventory. Users can add, edit, view, and delete items, while also managing the inventory with features such as pagination and efficient searching. The application ensures seamless interaction between the frontend and backend, offering an intuitive user interface and robust backend architecture.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
+- **Item Management:**
+  - Add, edit, and delete inventory items
+  - Track product quantity, price, and category
+- **View Inventory:**
+  - Display items in a paginated list for easy browsing
+  - View detailed information of each item including description, price, and quantity
+- **Error Handling:**
+  - Use of an error boundary component to catch and display errors
+- **Responsive Design:**
+  - A fully responsive design ensuring accessibility on various devices
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+### Backend
+- **Runtime:** Node.js with Express.js (TypeScript)
+- **Database:** MongoDB (hosted on MongoDB Atlas)
+- **Port:** 5000
 
-## Expanding the ESLint configuration
+### Frontend
+- **Framework:** React with TypeScript
+- **Styling:** Tailwind CSS, Shadcn UI
+- **State Management:** React Context API
+- **API Communication:** Axios
+- **Port:** 5173
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Backend Setup
+#### Set up your .env file
+Create a .env file in the root of your backend project and add the following variables:
+```
+MONGO_URI=mongodb+srv://<your_mongo_connection_string>
+PORT=5000
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+#### Installation
+1. **Clone the repository:**
+```bash
+git clone https://github.com/abrahamjose02/Inventory_WhizLabs_backend.git
+cd Inventory_WhizLabs_backend
 ```
+
+2. **Install backend dependencies:**
+```bash
+npm install
+```
+
+3. **Run the backend server:**
+```bash
+npm start
+```
+
+### Frontend Setup
+1. **Clone the repository:**
+```bash
+git clone https://github.com/abrahamjose02/Inventory_WhizLabs_frontend.git
+cd Inventory_WhizLabs_frontend
+```
+
+2. **Install frontend dependencies:**
+```bash
+npm install
+```
+
+3. **Run the frontend development server:**
+```bash
+npm run dev
+```
+
+The backend will run on http://localhost:5000 and the frontend on http://localhost:5173.
+
+### Running the Application
+1. Ensure that MongoDB is properly configured and running
+2. Start the backend and frontend servers
+3. Access the frontend at http://localhost:5173 and manage your inventory
+
+### API Endpoints
+- **POST /api/items** - Add a new inventory item
+- **GET  /api/items** - Retrieve a list of all inventory items
+- **GET  /api/items/:id** - Get detailed information about a specific item
+- **PUT  /api/items/:id** - Edit an existing item
+- **DELETE /api/items/:id** - Delete an item from inventory
+
+## Tech Features
+
+### Backend Features
+- **MongoDB Database:** All inventory data is stored in a scalable MongoDB database, hosted on MongoDB Atlas
+- **Express.js Server:** Robust REST API implementation with TypeScript
+- **Error Handling:** Comprehensive error handling middleware
+- **TypeScript:** Type-safe development environment
+
+### Frontend Features
+- **React Context API:** Provides centralized state management for inventory items across components
+- **Error Boundary:** Catches and displays errors gracefully within the UI
+- **Responsive Design:** Ensures that the application is mobile-friendly and optimized for all screen sizes
+- **Pagination:** Efficiently handles large datasets by implementing pagination
+- **TypeScript Integration:** Type-safe component development
+- **Tailwind CSS:** Utility-first CSS framework for responsive design
+
+## Repository Links
+- **Backend:** https://github.com/abrahamjose02/Inventory_WhizLabs_backend.git
+- **Frontend:** https://github.com/abrahamjose02/Inventory_WhizLabs_frontend.git
+
+## Conclusion
+**Inventory WhizLabs** is a comprehensive inventory management solution that is easy to set up and use. With features like item addition, deletion, and pagination, along with error handling and a responsive design, it provides a user-friendly and robust application for managing inventory. The combination of a powerful backend built with Node.js and MongoDB, and a modern frontend using React and Tailwind CSS, creates a scalable and efficient system for businesses of all sizes.
+
+---
